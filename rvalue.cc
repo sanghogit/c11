@@ -4,6 +4,7 @@
 #include <typeinfo>
 #include <array>
 #include <memory>	// unique_ptr
+#include "person.h"
 
 using namespace std;
 
@@ -22,36 +23,6 @@ void showstr(const string& s) {
 	cout << "str:"  << s << ", addr:" << (void*)(s.c_str()) << endl; 
 }
 */
-
-class Person {
-public:
-	string name;
-
-	Person( string i ) { 
-		name.resize( 10000); // prevent small/short string optimization
-		name = i; cout << "constructor "; showstr(); 
-	}
-
-	Person( const Person& other ) 
-		: name( other.name )       { cout << "copy_const. "; showstr(); }
-	Person( Person&& other ) 
-		: name( move(other.name) ) { cout << "move_const. "; showstr(); }
-    // *** RULE1 *** declare move constrcutr, move operator in a class
-	//               use move( .. ) if you want explicit move.
-
-	Person& operator=( const Person& other ) {
-		name = other.name; 		cout << "assign_operator."; showstr();
-		return *this;
-	}
-	Person& operator=( Person&& other ) {
-		name = move( other.name ); cout << "move_operator. "; showstr();
-		return *this;
-	}
-	void showstr() {
-		cout << "this(" << this << "), name:" 
-		     << name << "(" << (void*)(name.c_str()) << ")" << endl; 
-	}
-};
 
 Person returnMan( string n )
 {
