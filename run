@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SRC=_iostream.cc #regex.cc # vec.cc rvalue.cc
+SRC=iterator.cc #_iostream.cc #regex.cc # vec.cc rvalue.cc
 (clang++ -g ${SRC} 2>&1 | head -20) && (./a.out | head -20)
 # gdb -tui a.out
 
